@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BidingAPPAPI.Models;
+using BidingAPPAPI.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,20 @@ namespace BidingAPPAPI.Controllers
     [ApiController]
     public class SellerController : ControllerBase
     {
-        public IActionResult AddProduct()
+        private readonly ISellerService _service;
+
+        public SellerController(SellerService sellerService)
+        {
+            _service = sellerService;
+        }
+        [HttpPost]
+        public IActionResult AddProduct(Product product)
+        {
+            var data = _service.CreateProduct(product);
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult AddSellerInfo()
         {
             return Ok();
         }

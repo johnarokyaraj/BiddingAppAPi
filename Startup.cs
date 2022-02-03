@@ -1,3 +1,5 @@
+using BidingAPPAPI.Repository;
+using BidingAPPAPI.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +39,9 @@ namespace BidingAPPAPI
                     Description = "API to unerstand request and response schema.",
                 });
             });
+            services.AddTransient<SellerService>();
+            services.AddTransient<SellerRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
