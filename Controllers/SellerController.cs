@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Controllers
 {
-    [ApiVersion("v1")]
+    [ApiVersion("1")]
     [ApiController]
     public class SellerController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace BidingAPPAPI.Controllers
         {
             _sellerservice = sellerService;
         }
-        [Route("api/{v:apiVersion}/seller/add-product")]
+        [Route("api/v{v:apiVersion}/seller/add-product")]
         [HttpPost]
         public IActionResult AddProduct([FromBody] Product product)
         {
@@ -27,14 +27,14 @@ namespace BidingAPPAPI.Controllers
             return Ok();
         }
         [HttpPost]
-        [Route("api/{v:apiVersion}/seller/add-seller")]
+        [Route("api/v{v:apiVersion}/seller/add-seller")]
         public IActionResult AddSellerInfo([FromBody]Seller seller)
         {
             var data = _sellerservice.CreateSeller(seller);
 
             return Ok();
         }
-        [Route("api/{v:apiVersion}/seller/show-bids/{productId}")]
+        [Route("api/v{v:apiVersion}/seller/show-bids/{productId}")]
         [HttpGet]
         public IActionResult Showproductbids(string productId)
         {
@@ -42,7 +42,7 @@ namespace BidingAPPAPI.Controllers
             var data = _sellerservice.CreateProduct(product);
             return Ok();
         }
-        [Route("api/{v:apiVersion}/seller/delete/{productId}")]
+        [Route("api/v{v:apiVersion}/seller/delete/{productId}")]
         [HttpGet]
         public IActionResult Deleteproduct(string productId)
         {

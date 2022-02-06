@@ -28,7 +28,11 @@ namespace BidingAPPAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddApiVersioning();
+            services.AddApiVersioning(config =>
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+            });
             services.AddControllers().AddNewtonsoftJson();
             //Add Swagger relates setting  
             services.AddSwaggerGen(swagger =>

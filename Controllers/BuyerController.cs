@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Controllers
 {
-    [ApiVersion("v1")]
+    [ApiVersion("1")]
     [ApiController]
     public class BuyerController : ControllerBase
     {
@@ -19,14 +19,14 @@ namespace BidingAPPAPI.Controllers
         {
             _buyerservice = buyerService;
         }
-        [Route("api/{v:apiVersion}/buyer/place-bid")]
+        [Route("api/v{v:apiVersion}/buyer/place-bid")]
         [HttpPost]
         public IActionResult AddProduct([FromBody] Buyer buyer)
         {
             var data = _buyerservice.CreateProductBid(buyer);
             return Ok();
         }
-        [Route("api/{v:apiVersion}/buyer/update-bid/{productId}/{buyerEmailld}/{newBidAmount}")]
+        [Route("api/v{v:apiVersion}/buyer/update-bid/{productId}/{buyerEmailld}/{newBidAmount}")]
         [HttpPost]
         public IActionResult updateBuyerProductbid([FromBody] Buyer buyer)
         {
