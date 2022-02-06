@@ -8,6 +8,8 @@ namespace BidingAPPAPI.Models
 {
     public class Product
     {
+        public int Id { get; set; }
+        public string ProductId { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 5)]
         public string ProductName { get; set; }

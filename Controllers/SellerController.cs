@@ -9,26 +9,47 @@ using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("v1")]
     [ApiController]
     public class SellerController : ControllerBase
     {
-        private readonly ISellerService _service;
+        private readonly ISellerService _sellerservice;
 
         public SellerController(SellerService sellerService)
         {
-            _service = sellerService;
+            _sellerservice = sellerService;
         }
+        [Route("api/{v:apiVersion}/seller/add-product")]
         [HttpPost]
-        public IActionResult AddProduct(Product product)
+        public IActionResult AddProduct([FromBody] Product product)
         {
-            var data = _service.CreateProduct(product);
+            var data = _sellerservice.CreateProduct(product);
             return Ok();
         }
         [HttpPost]
-        public IActionResult AddSellerInfo()
+        [Route("api/{v:apiVersion}/seller/add-seller")]
+        public IActionResult AddSellerInfo([FromBody]Seller seller)
         {
+            var data = _sellerservice.CreateSeller(seller);
+
             return Ok();
         }
+        [Route("api/{v:apiVersion}/seller/show-bids/{productId}")]
+        [HttpGet]
+        public IActionResult Showproductbids(string productId)
+        {
+            var product = new Product { ProductId = productId };
+            var data = _sellerservice.CreateProduct(product);
+            return Ok();
+        }
+        [Route("api/{v:apiVersion}/seller/delete/{productId}")]
+        [HttpGet]
+        public IActionResult Deleteproduct(string productId)
+        {
+            var product = new Product { ProductId = productId };
+            var data = _sellerservice.CreateProduct(product);
+            return Ok();
+        }
+
     }
 }

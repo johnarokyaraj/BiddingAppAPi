@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Models
 {
-    public class Seller
+    public class Buyer
     {
         public int Id { get; set; }
         public string SellerId { get; set; }
         [Required]
-        [StringLength(30,MinimumLength =5)]
+        [StringLength(30, MinimumLength = 5)]
         public string FirstName { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 5)]
@@ -27,6 +27,9 @@ namespace BidingAPPAPI.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+        public string ProductId { get; set; }
+
+        public string BiddingAmount { get; set; }
 
     }
 }

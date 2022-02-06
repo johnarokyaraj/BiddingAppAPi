@@ -28,6 +28,7 @@ namespace BidingAPPAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApiVersioning();
             services.AddControllers().AddNewtonsoftJson();
             //Add Swagger relates setting  
             services.AddSwaggerGen(swagger =>
@@ -41,6 +42,8 @@ namespace BidingAPPAPI
             });
             services.AddTransient<SellerService>();
             services.AddTransient<SellerRepo>();
+            services.AddTransient<BuyerService>();
+            services.AddTransient<BuyerRepo>();
 
         }
 
