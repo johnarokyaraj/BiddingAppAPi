@@ -14,14 +14,15 @@ namespace BidingAPPAPI.Models
         [SwaggerIgnore]
         public string BuyerId { get; set; }
         [Required]
-        [StringLength(30, MinimumLength = 5)]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Name length can't be more than 30 and less than 5.")]
         public string FirstName { get; set; }
         [Required]
-        [StringLength(30, MinimumLength = 5)]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Name length can't be more than 30 and less than 5.")]
         public string LastName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
+        [RegularExpression(@"^\d{6}$")]
         public string Pin { get; set; }
         [Required]
         [Phone]

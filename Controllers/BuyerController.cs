@@ -1,4 +1,5 @@
-﻿using BidingAPPAPI.Models;
+﻿using BidingAPPAPI.ExceptionsResponse;
+using BidingAPPAPI.Models;
 using BidingAPPAPI.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,25 +24,60 @@ namespace BidingAPPAPI.Controllers
         [HttpPost]
         public IActionResult AddProduct([FromBody] Buyer buyer)
         {
-            if (buyer == null)
+            try
             {
-                return BadRequest();
+                if (buyer == null)
+                {
+                    return BadRequest();
+                }
+                else if (ModelState.IsValid)
+                {
+                    var data = _buyerservice.CreateProductBid(buyer);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            else if (ModelState.IsValid)
+            catch (AlreadyExistsException unf)
             {
-                var data = _buyerservice.CreateProductBid(buyer);
-                return Ok();
+                return Unauthorized(unf.Message);
             }
-            else {
-                return BadRequest();
+            catch
+            {
+                return StatusCode(500, "Some server error");
             }
         }
         [Route("api/v{v:apiVersion}/buyer/update-bid/{productId}/{buyerEmailld}/{newBidAmount}")]
         [HttpPost]
-        public IActionResult updateBuyerProductbid([FromBody] Buyer buyer)
+        public IActionResult updateBuyerProductbid(string productId,string buyerEmailld, string newBidAmount)
         {
-            var data = _buyerservice.Updateproductbids(buyer);
-            return Ok();
+            try
+            {
+                Buyer buyer = new Buyer { ProductId = productId, Email = buyerEmailld, BiddingAmount = newBidAmount };
+                if (buyer == null)
+                {
+                    return BadRequest();
+                }
+                else if (ModelState.IsValid)
+                {
+                    var data = _buyerservice.Updateproductbids(buyer);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (AlreadyExistsException unf)
+            {
+                return Unauthorized(unf.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "Some server error");
+            }
         }
     }
 }

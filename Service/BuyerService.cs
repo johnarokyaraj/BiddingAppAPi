@@ -22,7 +22,7 @@ namespace BidingAPPAPI.Service
             var result = _buyerrepository.CreateProductBid(buyer);
             if (!result)
             {
-                throw new AlreadyExistsException($"This Product {buyer.FirstName} already in use");
+                throw new AlreadyExistsException($"This {buyer.FirstName} Product bid already in use");
             }
             return result;
         }
@@ -31,7 +31,7 @@ namespace BidingAPPAPI.Service
             var result = _buyerrepository.Updateproductbids(buyer);
             if (!result)
             {
-                throw new AlreadyExistsException($"This Product {buyer.FirstName} already in use");
+                throw new AlreadyExistsException($"This {buyer.Email} Product bid cannot be updated");
             }
             return result;
         }

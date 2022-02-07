@@ -13,12 +13,12 @@ namespace BidingAPPAPI.Models
         [SwaggerIgnore]
         public string ProductId { get; set; }
         [Required]
-        [StringLength(30, MinimumLength = 5)]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Name length can't be more than 30 and less than 5.")]
         public string ProductName { get; set; }
         public string ShortDescription { get; set; }
         public string DetailedDescription { get; set; }
         public string Category { get; set; }
-        public Int32 StartingPrice { get; set; }
+        public string StartingPrice { get; set; }
         public DateTime BidEndDate { get; set; }
         public string SellerId { get; set; }
 
