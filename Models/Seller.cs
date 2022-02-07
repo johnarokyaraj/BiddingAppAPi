@@ -1,14 +1,16 @@
-﻿using System;
+﻿using BidingAPPAPI.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Models
 {
     public class Seller
     {
-        public int Id { get; set; }
+        [SwaggerIgnore]
         public string SellerId { get; set; }
         [Required]
         [StringLength(30,MinimumLength =5)]

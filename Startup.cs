@@ -1,3 +1,4 @@
+using BidingAPPAPI.Properties;
 using BidingAPPAPI.Repository;
 using BidingAPPAPI.Service;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,7 @@ namespace BidingAPPAPI
                     Version = "v1.1",
                     Description = "API to unerstand request and response schema.",
                 });
+                swagger.SchemaFilter<SwaggerSkipPropertyFilter>();
             });
             services.AddTransient<SellerService>();
             services.AddTransient<SellerRepo>();

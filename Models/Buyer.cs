@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BidingAPPAPI.Properties;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,8 +11,8 @@ namespace BidingAPPAPI.Models
 {
     public class Buyer
     {
-        [IgnoreDataMember]
-        public string SellerId { get; set; }
+        [SwaggerIgnore]
+        public string BuyerId { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 5)]
         public string FirstName { get; set; }
