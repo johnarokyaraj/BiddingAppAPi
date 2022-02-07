@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Models
 {
     public class Buyer
     {
-        public int Id { get; set; }
+        [IgnoreDataMember]
         public string SellerId { get; set; }
         [Required]
         [StringLength(30, MinimumLength = 5)]

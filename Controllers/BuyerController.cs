@@ -23,8 +23,18 @@ namespace BidingAPPAPI.Controllers
         [HttpPost]
         public IActionResult AddProduct([FromBody] Buyer buyer)
         {
-            var data = _buyerservice.CreateProductBid(buyer);
-            return Ok();
+            if (buyer == null)
+            {
+                return BadRequest();
+            }
+            else if (ModelState.IsValid)
+            {
+                var data = _buyerservice.CreateProductBid(buyer);
+                return Ok();
+            }
+            else {
+                return BadRequest();
+            }
         }
         [Route("api/v{v:apiVersion}/buyer/update-bid/{productId}/{buyerEmailld}/{newBidAmount}")]
         [HttpPost]
