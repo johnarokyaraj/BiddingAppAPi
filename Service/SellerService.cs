@@ -37,12 +37,12 @@ namespace BidingAPPAPI.Service
             return result;
         }
 
-        public bool Showproductbids(Product product)
+        public ProductBids Showproductbids(Product product)
         {
             var result = _sellerrepository.Showproductbids(product);
-            if (!result)
+            if (result==null)
             {
-                throw new AlreadyExistsException($"This Product {product.ProductName} already in use");
+                throw new NotFoundException($"This Product {product.ProductId} not found");
             }
             return result;
         }

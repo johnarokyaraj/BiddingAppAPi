@@ -10,7 +10,7 @@ namespace BidingAPPAPI.Repository
     {
         bool CreateProduct(Product product);
         bool CreateSeller(Seller seller);
-        bool Showproductbids(Product product);
+        ProductBids Showproductbids(Product product);
         bool Deleteproduct(Product product);
 
     }
