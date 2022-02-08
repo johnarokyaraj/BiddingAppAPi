@@ -269,6 +269,61 @@ namespace BidingAPPAPI.Repository
                 return false;
             }
         }
+        public Product GetProduct(Product product)
+        {
+            try
+            {
+                DataSet dsdb = new DataSet();
+                //you can get connection string as follows
+                string connectionString = m_config.GetConnectionString("SqlConnectionString");
+                using (SqlConnection cons = new SqlConnection(connectionString))
+                {
+                    cons.Open();
+                    SqlCommand cmds = new SqlCommand();
+                    cmds.Connection = cons;
+                    cmds.CommandText = "[dbo].[USP_ShowProduct]";
+                    cmds.CommandType = CommandType.StoredProcedure;
+                    //params
+                    cmds.Parameters.Add("@productId", SqlDbType.VarChar).Value = product.ProductId;
+
+                    //
+                    using (SqlDataAdapter adp = new SqlDataAdapter(cmds))
+                    {
+                        adp.Fill(dsdb);
+                    }
+                    cons.Close();
+                }
+                if (!IsEmpty(dsdb))
+                {
+                    DataTable dtProduct = dsdb.Tables[0].Rows.Count > 0 ? dsdb.Tables[0] : null;
+
+                    var product1 = from d in dtProduct.AsEnumerable()
+                                   select new Product
+                                   {
+                                       ProductId = d.Field<string>("ProductId"),
+                                       ProductName = d.Field<string>("ProductName"),
+                                       ShortDescription = d.Field<string>("ProductName"),
+                                       DetailedDescription = d.Field<string>("ProductName"),
+                                       Category = d.Field<string>("ProductName"),
+                                       StartingPrice = d.Field<string>("ProductName"),
+                                       BidEndDate = d.Field<DateTime>("BidEndDate"),
+                                       SellerId = d.Field<string>("ProductName")
+                                   };
+                   
+                   
+                    return product1.FirstOrDefault();
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         bool IsEmpty(DataSet dataSet)
         {

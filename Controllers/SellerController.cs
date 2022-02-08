@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Net;
+using Microsoft.Extensions.Logging;
+
 namespace BidingAPPAPI.Controllers
 {
     [ApiVersion("1")]
@@ -15,10 +18,13 @@ namespace BidingAPPAPI.Controllers
     public class SellerController : ControllerBase
     {
         private readonly ISellerService _sellerservice;
-
-        public SellerController(SellerService sellerService)
+        private readonly ILogger<SellerController> _logger;
+       
+        public SellerController(SellerService sellerService, ILogger<SellerController> logger)
         {
             _sellerservice = sellerService;
+            _logger = logger;
+
         }
         [Route("api/v{v:apiVersion}/seller/add-product")]
         [HttpPost]
@@ -28,6 +34,7 @@ namespace BidingAPPAPI.Controllers
             {
                 if (product == null)
                 {
+                    _logger.LogInformation("Bad Request");
                     return BadRequest();
                 }
                 else if (ModelState.IsValid)
@@ -37,15 +44,19 @@ namespace BidingAPPAPI.Controllers
                 }
                 else
                 {
+                    _logger.LogInformation("Bad Request");
                     return BadRequest();
                 }
             }
             catch (AlreadyExistsException unf)
             {
+                _logger.LogInformation(unf.Message);
+
                 return Unauthorized(unf.Message);
             }
             catch
             {
+                _logger.LogInformation("Some server error");
                 return StatusCode(500, "Some server error");
             }
         }
@@ -80,18 +91,18 @@ namespace BidingAPPAPI.Controllers
         }
         [Route("api/v{v:apiVersion}/seller/show-bids/{productId}")]
         [HttpGet]
-        public HttpResponseMessage Showproductbids(string productId)
+        public IActionResult Showproductbids(string productId)
         {
             try
             {
                 var product = new Product { ProductId = productId };
                 var data = _sellerservice.Showproductbids(product);
-                data.StatusCode = System.Net.HttpStatusCode.OK;
-                return data;
+                return StatusCode((int)HttpStatusCode.OK,data);
             }
-            catch
+            catch(Exception ex)
             {
-                return new ProductBids { StatusCode = System.Net.HttpStatusCode.InternalServerError };
+                _logger.LogInformation(ex.Message.ToString());
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message.ToString());
             }
         }
         [Route("api/v{v:apiVersion}/seller/delete/{productId}")]
@@ -104,12 +115,15 @@ namespace BidingAPPAPI.Controllers
                 var data = _sellerservice.Deleteproduct(product);
                 return Ok();
             }
-            catch (AlreadyExistsException unf)
+            catch (ActionNotAllowedException unf)
             {
+                _logger.LogInformation(unf.Message.ToString());
+
                 return Unauthorized(unf.Message);
             }
             catch
             {
+                _logger.LogInformation("Some server error");
                 return StatusCode(500, "Some server error");
             }
         }

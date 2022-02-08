@@ -3,6 +3,7 @@ using BidingAPPAPI.Models;
 using BidingAPPAPI.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,13 @@ namespace BidingAPPAPI.Controllers
     public class BuyerController : ControllerBase
     {
         private readonly IBuyerService _buyerservice;
+        private readonly ILogger<BuyerController> _logger;
 
-        public BuyerController(BuyerService buyerService)
+        public BuyerController(BuyerService buyerService, ILogger<BuyerController> logger)
         {
             _buyerservice = buyerService;
+            _logger = logger;
+
         }
         [Route("api/v{v:apiVersion}/buyer/place-bid")]
         [HttpPost]
@@ -28,6 +32,7 @@ namespace BidingAPPAPI.Controllers
             {
                 if (buyer == null)
                 {
+                    _logger.LogInformation("Bad Request");
                     return BadRequest();
                 }
                 else if (ModelState.IsValid)
@@ -37,15 +42,18 @@ namespace BidingAPPAPI.Controllers
                 }
                 else
                 {
+                    _logger.LogInformation("Bad Request");
                     return BadRequest();
                 }
             }
             catch (AlreadyExistsException unf)
             {
+                _logger.LogInformation(unf.Message.ToString());
                 return Unauthorized(unf.Message);
             }
             catch
             {
+                _logger.LogInformation("Some server error");
                 return StatusCode(500, "Some server error");
             }
         }
@@ -58,6 +66,7 @@ namespace BidingAPPAPI.Controllers
                 Buyer buyer = new Buyer { ProductId = productId, Email = buyerEmailld, BiddingAmount = newBidAmount };
                 if (buyer == null)
                 {
+                    _logger.LogInformation("Bad Request");
                     return BadRequest();
                 }
                 else if (ModelState.IsValid)
@@ -67,15 +76,18 @@ namespace BidingAPPAPI.Controllers
                 }
                 else
                 {
+                    _logger.LogInformation("Bad Request");
                     return BadRequest();
                 }
             }
             catch (AlreadyExistsException unf)
             {
+                _logger.LogInformation(unf.Message.ToString());
                 return Unauthorized(unf.Message);
             }
             catch
             {
+                _logger.LogInformation("Some server error");
                 return StatusCode(500, "Some server error");
             }
         }

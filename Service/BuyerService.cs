@@ -13,25 +13,33 @@ namespace BidingAPPAPI.Service
         //define a private variable to represent repository
         private readonly IBuyerRepo _buyerrepository;
 
-        public BuyerService(BuyerRepo buyerRepo)
+        private readonly ISellerRepo _sellerrepository;
+
+        public BuyerService(BuyerRepo buyerRepo,SellerRepo sellerRepo)
         {
             _buyerrepository = buyerRepo;
+            _sellerrepository = sellerRepo;
+
         }
         public bool CreateProductBid(Buyer buyer)
         {
+            Product product = new Product { ProductId=buyer.ProductId };
+            var productSel = _sellerrepository.GetProduct(product);
             var result = _buyerrepository.CreateProductBid(buyer);
             if (!result)
             {
-                throw new AlreadyExistsException($"This {buyer.FirstName} Product bid already in use");
+                throw new AlreadyExistsException($"This Product {productSel.ProductName}  bid already in placed");
             }
             return result;
         }
         public bool Updateproductbids(Buyer buyer)
         {
+            Product product = new Product { ProductId = buyer.ProductId };
+            var productSel = _sellerrepository.GetProduct(product);
             var result = _buyerrepository.Updateproductbids(buyer);
             if (!result)
             {
-                throw new AlreadyExistsException($"This {buyer.Email} Product bid cannot be updated");
+                throw new AlreadyExistsException($"This Product {productSel.ProductName} bid cannot be updated");
             }
             return result;
         }

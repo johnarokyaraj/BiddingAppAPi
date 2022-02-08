@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Models
 {
-    public class ProductBids:HttpResponseMessage
+    public class ProductBids
     {
         public Product Product { get; set; }
         public List<Buyer> Buyers { get; set; }

@@ -22,7 +22,7 @@ namespace BidingAPPAPI.Service
             var result = _sellerrepository.CreateProduct(product);
             if (!result)
             {
-                throw new AlreadyExistsException($"This Product {product.ProductName} already in use");
+                throw new NotSavedException($"This Product {product.ProductName} not saved.");
             }
             return result;
         }
@@ -32,26 +32,28 @@ namespace BidingAPPAPI.Service
             var result = _sellerrepository.CreateSeller(seller);
             if (!result)
             {
-                throw new AlreadyExistsException($"This Product {seller.FirstName} already in use");
+                throw new NotSavedException($"This Product {seller.FirstName}  not saved.");
             }
             return result;
         }
 
         public ProductBids Showproductbids(Product product)
         {
+            var prodResult = _sellerrepository.GetProduct(product);
             var result = _sellerrepository.Showproductbids(product);
             if (result==null)
             {
-                throw new NotFoundException($"This Product {product.ProductId} not found");
+                throw new NotFoundException($"This Product {prodResult.ProductName} not found");
             }
             return result;
         }
         public bool Deleteproduct(Product product)
         {
+            var prodResult = _sellerrepository.GetProduct(product);
             var result = _sellerrepository.Deleteproduct(product);
             if (!result)
             {
-                throw new AlreadyExistsException($"This Product {product.ProductName} already in use");
+                throw new ActionNotAllowedException($"This Product {prodResult.ProductName} cannot be deleted due to Active Bid or Closed BidDate");
             }
             return result;
         }
