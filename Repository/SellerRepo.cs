@@ -39,7 +39,7 @@ namespace BidingAPPAPI.Repository
                     dt.Columns.Add("DetailedDescription", typeof(string));
                     dt.Columns.Add("Category", typeof(string));
                     dt.Columns.Add("StartingPrice", typeof(string));
-                    dt.Columns.Add("BidEndDate", typeof(string));
+                    dt.Columns.Add("BidEndDate", typeof(DateTime));
                     dt.Columns.Add("SellerId", typeof(string));
 
                     var row = dt.NewRow();
@@ -49,7 +49,7 @@ namespace BidingAPPAPI.Repository
                     row["DetailedDescription"] = product.DetailedDescription;
                     row["Category"] = product.Category;
                     row["StartingPrice"] = product.StartingPrice;
-                    row["BidEndDate"] = product.BidEndDate;
+                    row["BidEndDate"] = Convert.ToDateTime(product.BidEndDate);
                     row["SellerId"] = product.SellerId;
 
                     dt.Rows.Add(row);
@@ -79,7 +79,7 @@ namespace BidingAPPAPI.Repository
                     return false;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
             }

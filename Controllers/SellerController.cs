@@ -48,7 +48,7 @@ namespace BidingAPPAPI.Controllers
                     return BadRequest();
                 }
             }
-            catch (AlreadyExistsException unf)
+            catch (NotSavedException unf)
             {
                 _logger.LogInformation(unf.Message);
 
@@ -80,7 +80,7 @@ namespace BidingAPPAPI.Controllers
                     return BadRequest();
                 }
             }
-            catch (AlreadyExistsException unf)
+            catch (NotSavedException unf)
             {
                 return Unauthorized(unf.Message);
             }
