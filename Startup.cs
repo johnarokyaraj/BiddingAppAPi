@@ -1,4 +1,4 @@
-using BidingAPPAPI.Properties;
+using BidingAPPAPI.Utility;
 using BidingAPPAPI.Repository;
 using BidingAPPAPI.Service;
 using Microsoft.AspNetCore.Builder;

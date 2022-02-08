@@ -1,4 +1,4 @@
-﻿using BidingAPPAPI.Properties;
+﻿using BidingAPPAPI.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +19,7 @@ namespace BidingAPPAPI.Models
         public string DetailedDescription { get; set; }
         public string Category { get; set; }
         public string StartingPrice { get; set; }
+        [CustomBidDate]
         public DateTime BidEndDate { get; set; }
         public string SellerId { get; set; }
 

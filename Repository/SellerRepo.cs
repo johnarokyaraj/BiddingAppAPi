@@ -79,7 +79,7 @@ namespace BidingAPPAPI.Repository
                     return false;
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }
@@ -225,7 +225,7 @@ namespace BidingAPPAPI.Repository
                 }
 
             }
-            catch(Exception ex)
+            catch
             {
                 return null;
             }
@@ -319,7 +319,7 @@ namespace BidingAPPAPI.Repository
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }

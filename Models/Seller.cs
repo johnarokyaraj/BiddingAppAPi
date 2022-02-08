@@ -1,4 +1,4 @@
-﻿using BidingAPPAPI.Properties;
+﻿using BidingAPPAPI.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

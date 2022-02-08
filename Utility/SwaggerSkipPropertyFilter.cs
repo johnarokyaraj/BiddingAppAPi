@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace BidingAPPAPI.Properties
+namespace BidingAPPAPI.Utility
 {
     public class SwaggerSkipPropertyFilter : ISchemaFilter
     {

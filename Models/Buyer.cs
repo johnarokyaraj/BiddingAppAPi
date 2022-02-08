@@ -1,4 +1,4 @@
-﻿using BidingAPPAPI.Properties;
+﻿using BidingAPPAPI.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
