@@ -57,6 +57,14 @@ namespace BidingAPPAPI.Service
             }
             return result;
         }
-
+        public List<Product> GetProducts()
+        {
+            var result = _sellerrepository.GetProducts();
+            if (result == null)
+            {
+                throw new NotFoundException($"This Products not found");
+            }
+            return result;
+        }
     }
 }

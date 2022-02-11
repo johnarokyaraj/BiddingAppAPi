@@ -13,6 +13,8 @@ namespace BidingAPPAPI.Repository
         ProductBids Showproductbids(Product product);
         bool Deleteproduct(Product product);
         Product GetProduct(Product product);
+        List<Product> GetProducts();
+
 
     }
 }

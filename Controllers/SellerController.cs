@@ -127,6 +127,21 @@ namespace BidingAPPAPI.Controllers
                 return StatusCode(500, "Some server error");
             }
         }
+        [Route("api/v{v:apiVersion}/seller/GetProducts")]
+        [HttpGet]
+        public IActionResult Getproducts()
+        {
+            try
+            {
+                var data = _sellerservice.GetProducts();
+                return StatusCode((int)HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(ex.Message.ToString());
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message.ToString());
+            }
+        }
 
     }
 }

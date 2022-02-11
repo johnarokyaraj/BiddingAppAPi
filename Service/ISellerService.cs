@@ -12,8 +12,7 @@ namespace BidingAPPAPI.Service
         bool CreateSeller(Seller seller);
         ProductBids Showproductbids(Product product);
         bool Deleteproduct(Product product);
-
-
+        List<Product> GetProducts();
 
     }
 }
