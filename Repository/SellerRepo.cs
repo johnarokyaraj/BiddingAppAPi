@@ -192,31 +192,40 @@ namespace BidingAPPAPI.Repository
                                 {
                                     ProductId = d.Field<string>("ProductId"),
                                     ProductName = d.Field<string>("ProductName"),
-                                    ShortDescription = d.Field<string>("ProductName"),
-                                    DetailedDescription = d.Field<string>("ProductName"),
-                                    Category = d.Field<string>("ProductName"),
-                                    StartingPrice = d.Field<string>("ProductName"),
+                                    ShortDescription = d.Field<string>("ShortDescription"),
+                                    DetailedDescription = d.Field<string>("DetailedDescription"),
+                                    Category = d.Field<string>("Category"),
+                                    StartingPrice = d.Field<string>("StartingPrice"),
                                     BidEndDate = d.Field<DateTime>("BidEndDate"),
                                     SellerId = d.Field<string>("SellerId")
                                 };
-                    var buyers =( from d in dtBuyers.AsEnumerable()
-                              select new Buyer
-                              {
-                                  BuyerId= d.Field<string>("BuyerId"),
-                                  FirstName = d.Field<string>("FirstName"),
-                                  LastName = d.Field<string>("LastName"),
-                                  Address = d.Field<string>("Address"),
-                                  City = d.Field<string>("City"),
-                                  State = d.Field<string>("State"),
-                                  Pin = d.Field<string>("Pin"),
-                                  Phone = d.Field<string>("Phone"),
-                                  Email = d.Field<string>("Email"),
-                                  ProductId = d.Field<string>("ProductId"),
-                                  BiddingAmount = d.Field<string>("BidAmount"),
-                              }).ToList();
-                    productBids = new ProductBids { 
-                    Product= product1.FirstOrDefault(),
-                    Buyers= buyers
+                    if (dtBuyers!=null)
+                    {
+                        var buyers = (from d in dtBuyers.AsEnumerable()
+                                      select new Buyer
+                                      {
+                                          BuyerId = d.Field<string>("BuyerId"),
+                                          FirstName = d.Field<string>("FirstName"),
+                                          LastName = d.Field<string>("LastName"),
+                                          Address = d.Field<string>("Address"),
+                                          City = d.Field<string>("City"),
+                                          State = d.Field<string>("State"),
+                                          Pin = d.Field<string>("Pin"),
+                                          Phone = d.Field<string>("Phone"),
+                                          Email = d.Field<string>("Email"),
+                                          ProductId = d.Field<string>("ProductId"),
+                                          BiddingAmount = d.Field<string>("BidAmount"),
+                                      }).ToList();
+                        productBids = new ProductBids
+                        {
+                            Product = product1.FirstOrDefault(),
+                            Buyers = buyers
+                        };
+                    }
+                    productBids = new ProductBids
+                    {
+                        Product = product1.FirstOrDefault(),
+                        Buyers = null
                     };
                     return productBids;
                 }
@@ -302,10 +311,10 @@ namespace BidingAPPAPI.Repository
                                    {
                                        ProductId = d.Field<string>("ProductId"),
                                        ProductName = d.Field<string>("ProductName"),
-                                       ShortDescription = d.Field<string>("ProductName"),
-                                       DetailedDescription = d.Field<string>("ProductName"),
-                                       Category = d.Field<string>("ProductName"),
-                                       StartingPrice = d.Field<string>("ProductName"),
+                                       ShortDescription = d.Field<string>("ShortDescription"),
+                                       DetailedDescription = d.Field<string>("DetailedDescription"),
+                                       Category = d.Field<string>("Category"),
+                                       StartingPrice = d.Field<string>("StartingPrice"),
                                        BidEndDate = d.Field<DateTime>("BidEndDate"),
                                        SellerId = d.Field<string>("SellerId")
                                    };
@@ -355,10 +364,10 @@ namespace BidingAPPAPI.Repository
                                    {
                                        ProductId = d.Field<string>("ProductId"),
                                        ProductName = d.Field<string>("ProductName"),
-                                       ShortDescription = d.Field<string>("ProductName"),
-                                       DetailedDescription = d.Field<string>("ProductName"),
-                                       Category = d.Field<string>("ProductName"),
-                                       StartingPrice = d.Field<string>("ProductName"),
+                                       ShortDescription = d.Field<string>("ShortDescription"),
+                                       DetailedDescription = d.Field<string>("DetailedDescription"),
+                                       Category = d.Field<string>("Category"),
+                                       StartingPrice = d.Field<string>("StartingPrice"),
                                        BidEndDate = d.Field<DateTime>("BidEndDate"),
                                        SellerId = d.Field<string>("SellerId")
                                    }).ToList();

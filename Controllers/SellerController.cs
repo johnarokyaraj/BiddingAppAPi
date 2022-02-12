@@ -57,7 +57,7 @@ namespace BidingAPPAPI.Controllers
             catch
             {
                 _logger.LogInformation("Some server error");
-                return StatusCode(500, "Some server error");
+                return StatusCode(404, "Some server error");
             }
         }
         [HttpPost]
@@ -86,7 +86,7 @@ namespace BidingAPPAPI.Controllers
             }
             catch
             {
-                return StatusCode(500, "Some server error");
+                return StatusCode(404, "Some server error");
             }
         }
         [Route("api/v{v:apiVersion}/seller/show-bids/{productId}")]
@@ -102,7 +102,7 @@ namespace BidingAPPAPI.Controllers
             catch(Exception ex)
             {
                 _logger.LogInformation(ex.Message.ToString());
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message.ToString());
+                return StatusCode((int)HttpStatusCode.NotFound, ex.Message.ToString());
             }
         }
         [Route("api/v{v:apiVersion}/seller/delete/{productId}")]
@@ -124,7 +124,7 @@ namespace BidingAPPAPI.Controllers
             catch
             {
                 _logger.LogInformation("Some server error");
-                return StatusCode(500, "Some server error");
+                return StatusCode(404, "Some server error");
             }
         }
         [Route("api/v{v:apiVersion}/seller/GetProducts")]
@@ -139,7 +139,7 @@ namespace BidingAPPAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogInformation(ex.Message.ToString());
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message.ToString());
+                return StatusCode((int)HttpStatusCode.NotFound, ex.Message.ToString());
             }
         }
 

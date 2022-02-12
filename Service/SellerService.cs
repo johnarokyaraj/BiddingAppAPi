@@ -43,7 +43,7 @@ namespace BidingAPPAPI.Service
             var result = _sellerrepository.Showproductbids(product);
             if (result==null)
             {
-                throw new NotFoundException($"This Product {prodResult.ProductName} not found");
+                throw new NotFoundException($"This Product {prodResult?.ProductName} not found");
             }
             return result;
         }
@@ -53,7 +53,7 @@ namespace BidingAPPAPI.Service
             var result = _sellerrepository.Deleteproduct(product);
             if (!result)
             {
-                throw new ActionNotAllowedException($"This Product {prodResult.ProductName} cannot be deleted due to Active Bid or Closed BidDate");
+                throw new ActionNotAllowedException($"This Product {prodResult?.ProductName} cannot be deleted due to Active Bid or Closed BidDate");
             }
             return result;
         }

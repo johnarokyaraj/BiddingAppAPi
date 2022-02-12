@@ -54,7 +54,7 @@ namespace BidingAPPAPI.Controllers
             catch
             {
                 _logger.LogInformation("Some server error");
-                return StatusCode(500, "Some server error");
+                return StatusCode(404, "Some server error");
             }
         }
         [Route("api/v{v:apiVersion}/buyer/update-bid/{productId}/{buyerEmailld}/{newBidAmount}")]
@@ -88,7 +88,7 @@ namespace BidingAPPAPI.Controllers
             catch
             {
                 _logger.LogInformation("Some server error");
-                return StatusCode(500, "Some server error");
+                return StatusCode(404, "Some server error");
             }
         }
     }
