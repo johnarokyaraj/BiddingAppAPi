@@ -185,7 +185,7 @@ namespace BidingAPPAPI.Repository
                 if (!IsEmpty(dsdb))
                 {
                     DataTable dtProduct = dsdb.Tables[0].Rows.Count > 0 ? dsdb.Tables[0] : null;
-                    DataTable dtBuyers = dsdb.Tables[1].Rows.Count>0 ? dsdb.Tables[1]:null;
+                    DataTable dtBuyers = dsdb.Tables[1].Rows.Count > 0 ? dsdb.Tables[1]:null;
 
                     var product1 = from d in dtProduct.AsEnumerable()
                                 select new Product
@@ -199,7 +199,7 @@ namespace BidingAPPAPI.Repository
                                     BidEndDate = d.Field<DateTime>("BidEndDate"),
                                     SellerId = d.Field<string>("SellerId")
                                 };
-                    if (dtBuyers!=null)
+                    if (dtBuyers != null)
                     {
                         var buyers = (from d in dtBuyers.AsEnumerable()
                                       select new Buyer
@@ -222,11 +222,14 @@ namespace BidingAPPAPI.Repository
                             Buyers = buyers
                         };
                     }
-                    productBids = new ProductBids
+                    else
                     {
-                        Product = product1.FirstOrDefault(),
-                        Buyers = null
-                    };
+                        productBids = new ProductBids
+                        {
+                            Product = product1.FirstOrDefault(),
+                            Buyers = null
+                        };
+                    }
                     return productBids;
                 }
                 else {
