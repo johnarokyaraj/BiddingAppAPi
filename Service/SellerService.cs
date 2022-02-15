@@ -66,5 +66,14 @@ namespace BidingAPPAPI.Service
             }
             return result;
         }
+        public List<Buyer> GetproductBids(string prodcutId, int pageNo, int pageSize, string sortColumn, string sortOrder)
+        {
+            var result = _sellerrepository.GetproductBids(prodcutId, pageNo, pageSize, sortColumn, sortOrder);
+            if (result == null)
+            {
+                throw new NotFoundException($"This Product Bids not found");
+            }
+            return result;
+        }
     }
 }

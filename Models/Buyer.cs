@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BidingAPPAPI.Models
 {
-    public class Buyer
+    public class Buyer: PagingFilter
     {
         [SwaggerIgnore]
         public string BuyerId { get; set; }

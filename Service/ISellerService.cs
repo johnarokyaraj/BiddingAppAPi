@@ -13,6 +13,7 @@ namespace BidingAPPAPI.Service
         ProductBids Showproductbids(Product product);
         bool Deleteproduct(Product product);
         List<Product> GetProducts();
+        List<Buyer> GetproductBids(string prodcutId, int pageNo, int pageSize, string sortColumn, string sortOrder);
 
     }
 }

@@ -389,6 +389,69 @@ namespace BidingAPPAPI.Repository
                 return null;
             }
         }
+        public List<Buyer> GetproductBids(string prodcutId, int pageNo, int pageSize, string sortColumn, string sortOrder)
+        {
+            try
+            {
+                DataSet dsdb = new DataSet();
+                //you can get connection string as follows
+                string connectionString = m_config.GetConnectionString("SqlConnectionString");
+                using (SqlConnection cons = new SqlConnection(connectionString))
+                {
+                    cons.Open();
+                    SqlCommand cmds = new SqlCommand();
+                    cmds.Connection = cons;
+                    cmds.CommandText = "[dbo].[USP_GetProductBids]";
+                    cmds.CommandType = CommandType.StoredProcedure;
+
+                    cmds.Parameters.Add("@productId", SqlDbType.VarChar).Value = prodcutId;
+                    cmds.Parameters.Add("@PageNo", SqlDbType.Int).Value = pageNo;
+                    cmds.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
+                    cmds.Parameters.Add("@SortColumn", SqlDbType.VarChar).Value = sortColumn;
+                    cmds.Parameters.Add("@SortOrder", SqlDbType.VarChar).Value = sortOrder;
+
+
+                    //
+                    using (SqlDataAdapter adp = new SqlDataAdapter(cmds))
+                    {
+                        adp.Fill(dsdb);
+                    }
+                    cons.Close();
+                }
+                if (!IsEmpty(dsdb))
+                {
+                    DataTable dtBuyers = dsdb.Tables[0].Rows.Count > 0 ? dsdb.Tables[0] : null;
+
+                    var buyers = (from d in dtBuyers.AsEnumerable()
+                                  select new Buyer
+                                  {
+                                      BuyerId = d.Field<string>("BuyerId"),
+                                      FirstName = d.Field<string>("FirstName"),
+                                      LastName = d.Field<string>("LastName"),
+                                      Address = d.Field<string>("Address"),
+                                      City = d.Field<string>("City"),
+                                      State = d.Field<string>("State"),
+                                      Pin = d.Field<string>("Pin"),
+                                      Phone = d.Field<string>("Phone"),
+                                      Email = d.Field<string>("Email"),
+                                      ProductId = d.Field<string>("ProductId"),
+                                      BiddingAmount = d.Field<string>("BidAmount")
+                                  }).ToList();
+
+
+                    return buyers;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         bool IsEmpty(DataSet dataSet)
         {
