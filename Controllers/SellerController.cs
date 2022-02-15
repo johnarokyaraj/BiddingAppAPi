@@ -142,13 +142,13 @@ namespace BidingAPPAPI.Controllers
                 return StatusCode((int)HttpStatusCode.NotFound, ex.Message.ToString());
             }
         }
-        [Route("api/v{v:apiVersion}/seller/GetProductBids/{productId}/{pageNo}/{pageSize}/{sortColumn}/{sortOrder}")]
+        [Route("api/v{v:apiVersion}/seller/GetProductBids/{productId}/{pageNo}/{pageSize}/{sortColumn:}/{sortOrder}")]
         [HttpGet]
-        public IActionResult GetproductBids(string prodcutId,  int pageNo=1,  int pageSize=5,  string sortColumn=null, string sortOrder="ASC")
+        public IActionResult GetproductBids(string productId,int pageNo=1,int pageSize=3,string sortColumn= "BuyerId", string sortOrder="ASC")
         {
             try
             {
-                var data = _sellerservice.GetproductBids(prodcutId,pageNo,pageSize,sortColumn,sortOrder);
+                var data = _sellerservice.GetproductBids(productId, pageNo, pageSize, sortColumn, sortOrder);
                 return StatusCode((int)HttpStatusCode.OK, data);
             }
             catch (Exception ex)

@@ -7,6 +7,7 @@ namespace BidingAPPAPI.Models
 {
     public class PagingFilter
     {
+        public string productId { get; set; }
         public string SortColumn { get; set; }
         public string SortOrder { get; set; }
         public int PageNo { get; set; }

@@ -435,7 +435,11 @@ namespace BidingAPPAPI.Repository
                                       Phone = d.Field<string>("Phone"),
                                       Email = d.Field<string>("Email"),
                                       ProductId = d.Field<string>("ProductId"),
-                                      BiddingAmount = d.Field<string>("BidAmount")
+                                      BiddingAmount = d.Field<string>("biddingAmount"),
+                                      TotalRows=d.Field<int>("TotalRows"),
+                                      PageCount=d.Field<int>("TotalPages"),
+                                      PageNo=d.Field<int>("CurrentPage"),
+                                      PageSize=d.Field<int>("MaxRows")
                                   }).ToList();
 
 
@@ -447,7 +451,7 @@ namespace BidingAPPAPI.Repository
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
                 return null;
             }
