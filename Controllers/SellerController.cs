@@ -19,11 +19,13 @@ namespace BidingAPPAPI.Controllers
     {
         private readonly ISellerService _sellerservice;
         private readonly ILogger<SellerController> _logger;
-       
-        public SellerController(SellerService sellerService, ILogger<SellerController> logger)
+		private readonly IKafkaProducer<string, string> _kafkaProducer;
+
+        public SellerController(SellerService sellerService, ILogger<SellerController> logger, IKafkaProducer<string, string> kafkaProducer)
         {
             _sellerservice = sellerService;
             _logger = logger;
+            _kafkaProducer = kafkaProducer;
 
         }
         [Route("api/v{v:apiVersion}/seller/add-product")]
@@ -111,8 +113,9 @@ namespace BidingAPPAPI.Controllers
         {
             try
             {
-                var product = new Product { ProductId = productId };
-                var data = _sellerservice.Deleteproduct(product);
+                //var product = new Product { ProductId = productId };
+                //var data = _sellerservice.Deleteproduct(product);
+                _kafkaProducer.ProduceAsync("DeleteProduct", null, productId);
                 return Ok();
             }
             catch (ActionNotAllowedException unf)

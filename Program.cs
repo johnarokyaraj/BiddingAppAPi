@@ -1,5 +1,7 @@
+using BidingAPPAPI.Service;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -23,6 +25,11 @@ namespace BidingAPPAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            //.ConfigureServices((context, collection) =>
+            //{
+            //    //collection.AddHostedService<KafkaConsumerHostedService>();
+            //    collection.AddHostedService<KafkaProducerHostedService>();
+            //})
             .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

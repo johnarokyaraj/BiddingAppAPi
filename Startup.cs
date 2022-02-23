@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Confluent.Kafka;
 
 namespace BidingAPPAPI
 {
@@ -52,6 +53,13 @@ namespace BidingAPPAPI
             services.AddTransient<BuyerService>();
             services.AddTransient<BuyerRepo>();
             services.AddSingleton(Configuration);
+            var producerConfig = new ProducerConfig(new ClientConfig
+            {
+                BootstrapServers = Configuration["Kafka:ClientConfigs:BootstrapServers"]
+            });
+
+            services.AddSingleton(producerConfig);
+            services.AddSingleton(typeof(IKafkaProducer<,>), typeof(KafkaProducer<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
