@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net;
 using Microsoft.Extensions.Logging;
+using MediatR;
 
 namespace BidingAPPAPI.Controllers
 {
@@ -19,12 +20,13 @@ namespace BidingAPPAPI.Controllers
     {
         private readonly ISellerService _sellerservice;
         private readonly ILogger<SellerController> _logger;
+        private readonly IMediator _mediator;
        
-        public SellerController(SellerService sellerService, ILogger<SellerController> logger)
+        public SellerController(SellerService sellerService, ILogger<SellerController> logger, IMediator mediator)
         {
             _sellerservice = sellerService;
             _logger = logger;
-
+            _mediator = mediator;
         }
         [Route("api/v{v:apiVersion}/seller/add-product")]
         [HttpPost]

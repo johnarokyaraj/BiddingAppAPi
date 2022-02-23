@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace BidingAPPAPI
 {
@@ -48,10 +49,11 @@ namespace BidingAPPAPI
                 swagger.SchemaFilter<SwaggerSkipPropertyFilter>();
             });
             services.AddTransient<SellerService>();
-            services.AddTransient<SellerRepo>();
             services.AddTransient<BuyerService>();
-            services.AddTransient<BuyerRepo>();
+            services.AddSingleton<SellerRepo>();
+            services.AddSingleton<BuyerRepo>();
             services.AddSingleton(Configuration);
+            services.AddMediatR(typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
