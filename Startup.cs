@@ -43,7 +43,7 @@ namespace BidingAPPAPI
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Bidding API",
-                    Version = "v1.1",
+                    Version = "v1",
                     Description = "API to unerstand request and response schema.",
                 });
                 swagger.SchemaFilter<SwaggerSkipPropertyFilter>();
@@ -78,6 +78,15 @@ namespace BidingAPPAPI
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger(c =>
+            {
+                c.SerializeAsV2 = true;
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bidding API v1");
+            });
+
             app.UseRouting();
             app.UseAuthentication();
 
@@ -87,11 +96,7 @@ namespace BidingAPPAPI
             {
                 endpoints.MapControllers();
             });
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bidding API");
-            });
+           
         }
     }
 }
